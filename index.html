@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-Suite Barber | Executive At-Home Barber Services</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Import the Inter font from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            /* Prevent horizontal scroll on mobile */
+        }
+
+        /* Custom styles for the luxury theme with a dark blue palette */
+        .lux-bg {
+            background-color: #0a1c3f;
+            /* Dark Blue */
+            color: #f5f5f5;
+        }
+
+        .lux-primary-text {
+            color: #FFD700;
+            /* Gold accent color */
+        }
+
+        .lux-btn {
+            background-color: #FFD700;
+            color: #1a1a1a;
+            transition: all 0.3s ease-in-out;
+            border-radius: 9999px;
+            font-weight: 600;
+            min-width: 120px;
+            padding: 10px 14px;
+            text-align: center;
+        }
+
+        .lux-btn:hover {
+            background-color: #e6c200;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(255, 215, 0, 0.4);
+        }
+
+        .lux-border {
+            border-color: #4a4a4a;
+        }
+
+        .section-header {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #f5f5f5;
+        }
+
+        /* Custom modal overlay */
+        .modal-overlay {
+            background-color: rgba(10, 28, 63, 0.7);
+            /* Dark blue overlay */
+            -webkit-backdrop-filter: 5px;
+            backdrop-filter: blur(5px);
+            z-index: 50;
+        }
+
+        .modal-content {
+            z-index: 60;
+        }
+
+        /* Scroll behavior for smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header transition for scroll effect */
+        .header-transition {
+            transition: background-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        /* CSS for the scrolled header state */
+        .scrolled-header {
+            background-color: rgba(10, 28, 63, 0.7);
+            /* Dark blue header on scroll */
+            -webkit-backdrop-filter: 5px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Mobile Menu Animation */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+
+        #mobile-menu.menu-open {
+            transform: translateX(0);
+        }
+
+        /* Hamburger Icon Animation */
+        #menu-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        #menu-btn span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #menu-btn.menu-open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        #menu-btn.menu-open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        #menu-btn.menu-open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Header Link Hover Animation */
+        .desktop-nav-link {
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .desktop-nav-link:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="lux-bg">
+
+    <!-- Navbar -->
+    <header id="main-header" class="fixed top-0 left-0 w-full z-40 header-transition">
+        <nav class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <!-- Mobile Menu -->
+            <div class="flex w-full justify-between items-center md:hidden">
+                <a href="#" class="text-3xl font-bold lux-primary-text">
+                    <img src="./img/logo.png" width="120px" alt="C-Suite Logo">
+                </a>
+                <button id="menu-btn" class="text-white focus:outline-none">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex flex-1 justify-center items-center">
+                <ul class="flex-1 flex justify-end space-x-6 text-sm font-medium pr-8">
+                    <li><a href="#services" class="desktop-nav-link hover:lux-primary-text">Services</a></li>
+                    <li><a href="#about" class="desktop-nav-link hover:lux-primary-text">Why Us</a></li>
+                </ul>
+                <a href="#" class="text-3xl font-bold lux-primary-text px-8">
+                    <img src="./img/logo.png"  width="120px" alt="C-Suite Logo">
+                </a>
+                <ul class="flex-1 flex justify-start space-x-6 text-sm font-medium pl-8">
+                    <li><a href="#testimonials" class="desktop-nav-link hover:lux-primary-text">Testimonials</a></li>
+                    <li><a href="#booking-form-section" class="lux-btn px-6 py-2">Book Now</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu"
+            class="fixed top-0 right-0 h-full w-2/3 md:hidden bg-[#0f2a58] p-8 transform translate-x-full transition-transform duration-300">
+            <div class="flex justify-end mb-8">
+                <button id="close-mobile-menu-btn" class="text-white text-2xl">&times;</button>
+            </div>
+            <ul class="flex flex-col items-start space-y-6 text-xl font-medium">
+                <li><a href="#services"
+                        class="block w-full py-2 hover:lux-primary-text transition duration-300">Services</a></li>
+                <li><a href="#about" class="block w-full py-2 hover:lux-primary-text transition duration-300">Why Us</a>
+                </li>
+                <li><a href="#testimonials"
+                        class="block w-full py-2 hover:lux-primary-text transition duration-300">Testimonials</a></li>
+                <li><a href="#booking-form-section" class="lux-btn block w-3/4 mx-auto py-2 mt-4 text-center">Book
+                        Now</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="h-screen flex items-center justify-center text-center bg-cover bg-center"
+            style="background: linear-gradient(rgba(3, 1, 51, 0.35), rgba(3, 1, 51, 0.35)), url(./img/hero.png); background-repeat: no-repeat; background-size: cover; background-position: center;">
+            <div class="bg-[#0a1c3f] bg-opacity-60 p-8 md:p-16 rounded-lg max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                    <span class="lux-primary-text">The Executive Treatment</span>, Delivered to You.
+                </h1>
+                <p class="mt-4 md:mt-6 text-lg md:text-xl text-gray-300">
+                    Experience unparalleled convenience and privacy with C-Suite Barber's premium at-home services.
+                </p>
+                <button id="hero-book-btn" class="lux-btn mt-8 px-12 py-4 text-lg">Book Your Private Barber
+                    Session</button>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-16 md:py-24 container mx-auto px-4">
+            <h2 class="section-header text-center mb-12">Our Services</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div
+                    class="bg-[#0f2a58] rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition duration-300">
+                    <div class="lux-primary-text text-5xl mb-4">
+                        <span role="img" aria-label="Scissors">✂️</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">The C-Suite Cut</h3>
+                    <p class="text-gray-400">A precision haircut tailored to your style, complete with a professional
+                        wash and styling.</p>
+                </div>
+                <!-- Service 2 -->
+                <div
+                    class="bg-[#0f2a58] rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition duration-300">
+                    <div class="lux-primary-text text-5xl mb-4">
+                        <span role="img" aria-label="Razor">🪒</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">The Executive Shave</h3>
+                    <p class="text-gray-400">A luxurious hot towel shave using premium products, ensuring a smooth and
+                        clean finish.</p>
+                </div>
+                <!-- Service 3 -->
+                <div
+                    class="bg-[#0f2a58] rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition duration-300">
+                    <div class="lux-primary-text text-5xl mb-4">
+                        <span role="img" aria-label="Massage">💆</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">The Full Refresh</h3>
+                    <p class="text-gray-400">Our signature package including a precision cut, hot towel shave, and a
+                        mini-facial.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Us Section -->
+        <section id="about" class="py-16 md:py-24 bg-[#0f2a58]">
+            <div class="container mx-auto px-4">
+                <h2 class="section-header text-center mb-12">Why Choose C-Suite Barber?</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                    <!-- Feature 1 -->
+                    <div class="flex flex-col items-center">
+                        <div class="lux-primary-text text-4xl mb-4">
+                            <span role="img" aria-label="Clock">⏰</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Unmatched Convenience</h3>
+                        <p class="text-gray-400">We come to you, saving you time and the hassle of travel.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="flex flex-col items-center">
+                        <div class="lux-primary-text text-4xl mb-4">
+                            <span role="img" aria-label="Shield">🛡️</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Absolute Privacy</h3>
+                        <p class="text-gray-400">Enjoy a private, one-on-one session in the comfort of your own home or
+                            office.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="flex flex-col items-center">
+                        <div class="lux-primary-text text-4xl mb-4">
+                            <span role="img" aria-label="Diamond">💎</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Premium Quality</h3>
+                        <p class="text-gray-400">Our master barbers use top-tier tools and products for a flawless
+                            result.</p>
+                    </div>
+                    <!-- Feature 4 -->
+                    <div class="flex flex-col items-center">
+                        <div class="lux-primary-text text-4xl mb-4">
+                            <span role="img" aria-label="Calendar">🗓️</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Flexible Scheduling</h3>
+                        <p class="text-gray-400">Book your appointment at a time that works for your busy schedule.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-16 md:py-24 container mx-auto px-4">
+            <h2 class="section-header text-center mb-12">What Our Clients Say</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-[#0f2a58] rounded-xl shadow-lg p-6 border lux-border">
+                    <div class="lux-primary-text text-xl mb-4 font-bold">"</div>
+                    <p class="italic text-gray-300">"The best barber experience I've ever had. Professional, timely, and
+                        the quality of the cut was superb. The convenience of not having to leave my home is a
+                        game-changer."</p>
+                    <p class="mt-4 text-gray-500 font-semibold">- John D., CEO</p>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-[#0f2a58] rounded-xl shadow-lg p-6 border lux-border">
+                    <div class="lux-primary-text text-xl mb-4 font-bold">"</div>
+                    <p class="italic text-gray-300">"Finally, a service that understands the value of my time. The hot
+                        towel shave was pure luxury. I highly recommend C-Suite Barber to anyone who values quality and
+                        privacy."</p>
+                    <p class="mt-4 text-gray-500 font-semibold">- Michael P., Investor</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Form Section -->
+        <section id="booking-form-section" class="py-16 md:py-24 bg-[#0f2a58] text-center">
+            <div class="container mx-auto px-4 max-w-lg">
+                <h2 class="section-header mb-4">Book Your Session</h2>
+                <p class="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+                    Fill out the form below to book your private, at-home barbering session.
+                </p>
+                <form id="booking-form" class="bg-[#143265] p-8 rounded-lg shadow-2xl text-left">
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-300 font-medium mb-1">Full Name</label>
+                        <input type="text" id="name" name="name"
+                            class="w-full px-4 py-2 bg-[#0a1c3f] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                            required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-300 font-medium mb-1">Email Address</label>
+                        <input type="email" id="email" name="email"
+                            class="w-full px-4 py-2 bg-[#0a1c3f] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                            required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="phone" class="block text-gray-300 font-medium mb-1">Phone Number</label>
+                        <input type="tel" id="phone" name="phone"
+                            class="w-full px-4 py-2 bg-[#0a1c3f] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                            required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="service" class="block text-gray-300 font-medium mb-1">Service</label>
+                        <select id="service" name="service"
+                            class="w-full px-4 py-2 bg-[#0a1c3f] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                            required>
+                            <option value="">Select a service</option>
+                            <option value="C-Suite Cut">The C-Suite Cut</option>
+                            <option value="Executive Shave">The Executive Shave</option>
+                            <option value="Full Refresh">The Full Refresh</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="message" class="block text-gray-300 font-medium mb-1">Additional Notes</label>
+                        <textarea id="message" name="message" rows="3"
+                            class="w-full px-4 py-2 bg-[#0a1c3f] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFD700]"></textarea>
+                    </div>
+                    <button type="submit" class="lux-btn w-full py-3">Submit Booking Request</button>
+                </form>
+                <div id="form-success-message" class="hidden mt-4 text-center text-green-400">
+                    <p>Thank you for your booking request! We will be in touch shortly.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0a1c3f] py-8">
+        <div
+            class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left text-gray-500 text-sm">
+            <p>&copy; 2024 C-Suite Barber. All rights reserved.</p>
+            <div class="mt-4 md:mt-0 flex space-x-4">
+                <a href="#" class="hover:text-white transition duration-300">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition duration-300">Terms of Service</a>
+            </div>
+            <div class="mt-4 md:mt-0 flex space-x-4 text-xl">
+                <a href="#" class="hover:lux-primary-text transition duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M22 6c-0.81 0.36-1.68 0.61-2.58 0.72 0.94-0.56 1.66-1.45 2-2.52-0.88 0.52-1.85 0.9-2.88 1.1C18.42 3.6 17.2 3 15.86 3c-2.45 0-4.44 2.06-4.44 4.59 0 0.36 0.04 0.71 0.11 1.05-3.69-0.19-6.97-1.95-9.16-4.63-0.38 0.67-0.59 1.45-0.59 2.29 0 1.59 0.81 2.99 2.04 3.82-0.75-0.02-1.46-0.23-2.08-0.58 0 0.02 0 0.03 0 0.05 0 2.22 1.58 4.08 3.66 4.5-0.38 0.1-0.78 0.15-1.2 0.15-0.29 0-0.57-0.03-0.84-0.08 0.58 1.84 2.26 3.18 4.25 3.22-1.57 1.29-3.56 2.06-5.72 2.06-0.37 0-0.74-0.02-1.1-0.06 2.03 1.3 4.45 2.06 7.05 2.06 8.46 0 13.09-7.23 13.09-13.49 0-0.21 0-0.41-0.01-0.62 0.9-0.67 1.68-1.51 2.3-2.47z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="#" class="hover:lux-primary-text transition duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.172 8.438 9.909v-7.568H7.55V12h2.888v-2.08c0-2.85 1.744-4.417 4.296-4.417 1.22 0 2.274 0.092 2.58 0.133v2.812h-1.66c-1.31 0-1.564 0.624-1.564 1.54v1.942h3.137l-0.407 3.064H13.6V22C18.343 21.172 22 16.991 22 12z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+                <a href="#" class="hover:lux-primary-text transition duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M7.8 2h8.4C18.1 2 20 3.9 20 6.2v8.4C20 18.1 18.1 20 15.8 20H7.8C5.5 20 3.6 18.1 3.6 15.8V6.2C3.6 3.9 5.5 2 7.8 2zm-.2 2.6c-1.2 0-2.2 1-2.2 2.2v8.4c0 1.2 1 2.2 2.2 2.2h8.4c1.2 0 2.2-1 2.2-2.2V6.2c0-1.2-1-2.2-2.2-2.2H7.6zM12 7.6c-2.4 0-4.4 2-4.4 4.4s2 4.4 4.4 4.4 4.4-2 4.4-4.4-2-4.4-4.4-4.4zm0 2.2c1.2 0 2.2 1 2.2 2.2s-1 2.2-2.2 2.2-2.2-1-2.2-2.2 1-2.2 2.2-2.2zm4.6-5.8h1.2v1.2h-1.2V4zm0 0">
+                        </path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal (still available for other "Book Now" buttons) -->
+    <div id="booking-modal" class="fixed inset-0 flex items-center justify-center hidden modal-overlay">
+        <div class="bg-[#143265] p-8 rounded-lg shadow-2xl max-w-md w-full modal-content">
+            <div class="flex justify-between items-center mb-4 border-b pb-4 lux-border">
+                <h3 class="text-2xl font-bold">Book Your Session</h3>
+                <button id="close-modal-btn"
+                    class="text-gray-400 hover:text-white transition duration-300">&times;</button>
+            </div>
+            <!-- The form content is now on the page, this modal is for a simpler booking interaction -->
+            <p class="text-gray-300 text-center">To book your session, please fill out the form below. Alternatively,
+                you can use the form on the page.</p>
+            <div class="flex justify-center mt-4">
+                <a href="#booking-form-section" class="lux-btn px-6 py-2" id="modal-to-form-btn">Go to Booking Form</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    const menuBtn = document.getElementById('menu-btn');
+                    const body = document.body;
+
+                    if (mobileMenu.classList.contains('menu-open')) {
+                        mobileMenu.classList.remove('menu-open');
+                        menuBtn.classList.remove('menu-open');
+                        body.classList.remove('overflow-hidden');
+                    }
+                });
+            });
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const body = document.body;
+            const closeMobileMenuBtn = document.getElementById('close-mobile-menu-btn');
+
+            const toggleMobileMenu = () => {
+                mobileMenu.classList.toggle('menu-open');
+                menuBtn.classList.toggle('menu-open');
+                body.classList.toggle('overflow-hidden');
+            };
+
+            menuBtn.addEventListener('click', toggleMobileMenu);
+            closeMobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+            // Booking Modal functionality
+            const modal = document.getElementById('booking-modal');
+            const openModalBtns = document.querySelectorAll('#hero-book-btn, .lux-btn[href="#booking-form-section"]');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const modalToFormBtn = document.getElementById('modal-to-form-btn');
+
+            openModalBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (btn.getAttribute('href') === '#booking-form-section') {
+                        // The default action of this button is to scroll, which is handled above.
+                        // We don't want to open the modal for this button anymore.
+                    } else {
+                        modal.classList.remove('hidden');
+                    }
+                });
+            });
+
+            closeModalBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+
+            // Handle the form submission for the new on-page form
+            const bookingForm = document.getElementById('booking-form');
+            const formSuccessMessage = document.getElementById('form-success-message');
+
+            bookingForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // In a real application, you would send this data to a server.
+                console.log('Booking form submitted:', {
+                    name: bookingForm.name.value,
+                    email: bookingForm.email.value,
+                    phone: bookingForm.phone.value,
+                    service: bookingForm.service.value,
+                    message: bookingForm.message.value
+                });
+
+                bookingForm.classList.add('hidden');
+                formSuccessMessage.classList.remove('hidden');
+
+                // Optionally, reset the form and hide the message after a few seconds
+                setTimeout(() => {
+                    bookingForm.reset();
+                    bookingForm.classList.remove('hidden');
+                    formSuccessMessage.classList.add('hidden');
+                }, 5000);
+            });
+
+            // JavaScript for the dynamic header effect
+            const header = document.getElementById('main-header');
+
+            window.addEventListener('scroll', () => {
+                // Change header appearance when scrolled past a certain point
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled-header');
+                } else {
+                    header.classList.remove('scrolled-header');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
